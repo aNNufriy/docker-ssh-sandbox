@@ -1,0 +1,10 @@
+services:
+  mysshserver:
+    build: .
+    hostname: mysshserver
+    ports:
+      - "${SSH_PORT}:22"
+    volumes:
+      - ./roothome:/root
+      - ./ssh_host_keys:/etc/ssh
+    restart: always
