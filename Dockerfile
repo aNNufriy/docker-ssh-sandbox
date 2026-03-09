@@ -18,7 +18,18 @@ RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh
 # make zsh default shell
 RUN chsh -s /usr/bin/zsh root
 
-EXPOSE 22
+RUN apt-get install -y locales && \
+    locale-gen ru_RU.UTF-8 && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=ru_RU.UTF-8 LANGUAGE=ru_RU:ru LC_ALL=ru_RU.UTF-8
+
+RUN echo "export LANG=ru_RU.UTF-8" >> /etc/zsh/zshenv && \
+    echo "export LANGUAGE=ru_RU:ru" >> /etc/zsh/zshenv && \
+    echo "export LC_ALL=ru_RU.UTF-8" >> /etc/zsh/zshenv
+
+RUN npm install -g likec4
+
+EXPOSE 22 5173
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

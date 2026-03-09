@@ -4,6 +4,7 @@ services:
     hostname: mysshserver
     ports:
       - "${SSH_PORT}:22"
+      - "127.0.0.1:5173:5173"
     volumes:
       - ./roothome:/root
       - ./ssh_host_keys:/etc/ssh
